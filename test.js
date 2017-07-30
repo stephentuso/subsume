@@ -5,21 +5,21 @@ test('new Subsume()', t => {
 	const subsume = new Subsume();
 	t.is(typeof subsume.id, 'string');
 	t.is(subsume.id.length, 32);
-	t.true(subsume.prefix.startsWith('@@['));
-	t.true(subsume.prefix.endsWith(']@@'));
-	t.true(subsume.postfix.startsWith('##['));
-	t.true(subsume.postfix.endsWith(']##'));
+	t.true(subsume.prefix.startsWith('Qq-'));
+	t.true(subsume.prefix.endsWith('-qQ'));
+	t.true(subsume.postfix.startsWith('Zz-'));
+	t.true(subsume.postfix.endsWith('-zZ'));
 	t.truthy(subsume.regex);
 });
 
 test('new Subsume(id)', t => {
 	const subsume = new Subsume('unicorn');
 	t.is(subsume.id, 'unicorn');
-	t.is(subsume.prefix, '@@[unicorn]@@');
+	t.is(subsume.prefix, 'Qq-unicorn-qQ');
 });
 
 test('Subsume.parse()', t => {
-	const fixture = 'some@@[7febcd0b3806fbc48c01d7cea4ed1219]@@🦄##[7febcd0b3806fbc48c01d7cea4ed1219]## random text';
+	const fixture = 'someQq-7febcd0b3806fbc48c01d7cea4ed1219-qQ🦄Zz-7febcd0b3806fbc48c01d7cea4ed1219-zZ random text';
 	const id = '7febcd0b3806fbc48c01d7cea4ed1219';
 
 	t.deepEqual(Subsume.parse(fixture, id), {
@@ -36,7 +36,7 @@ test('Subsume#compose()', t => {
 });
 
 test('Subsume#parse()', t => {
-	const fixture = 'some@@[7febcd0b3806fbc48c01d7cea4ed1219]@@🦄##[7febcd0b3806fbc48c01d7cea4ed1219]## random text';
+	const fixture = 'someQq-7febcd0b3806fbc48c01d7cea4ed1219-qQ🦄Zz-7febcd0b3806fbc48c01d7cea4ed1219-zZ random text';
 	const subsume = new Subsume('7febcd0b3806fbc48c01d7cea4ed1219');
 
 	t.deepEqual(subsume.parse(fixture), {

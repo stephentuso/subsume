@@ -7,13 +7,13 @@ class Subsume {
 		return (new Subsume(id)).parse(str);
 	}
 	constructor(id) {
-		if (id && (id.includes('@@[') || id.includes('##['))) {
-			throw new Error('`@@[` and `##[` cannot be used in the ID');
+		if (id && (id.includes('Qq-') || id.includes('Zz-'))) {
+			throw new Error('`Qq-` and `Zz-` cannot be used in the ID');
 		}
 
 		this.id = id ? id : uniqueString();
-		this.prefix = `@@[${this.id}]@@`;
-		this.postfix = `##[${this.id}]##`;
+		this.prefix = `Qq-${this.id}-qQ`;
+		this.postfix = `Zz-${this.id}-zZ`;
 		this.regex = new RegExp(escapeStringRegexp(this.prefix) + '([\\S\\s]*)' + escapeStringRegexp(this.postfix), 'g');
 	}
 	compose(str) {

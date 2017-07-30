@@ -1,4 +1,7 @@
-# subsume [![Build Status](https://travis-ci.org/sindresorhus/subsume.svg?branch=master)](https://travis-ci.org/sindresorhus/subsume)
+# subsume-limited
+
+*This fork of [subsume](https://github.com/sindresorhus/subsume) is for use in
+  cases where the use of symbol characters is limited (only uses `-`).*
 
 > Embed data in other data and easily extract it when needed
 
@@ -8,14 +11,14 @@ Can for example be useful when you run a child process that has multiple entitie
 ## Install
 
 ```
-$ npm install --save subsume
+$ npm install --save subsume-limited
 ```
 
 
 ## Usage
 
 ```js
-const Subsume = require('subsume');
+const Subsume = require('subsume-limited');
 
 const subsume = new Subsume();
 
@@ -23,18 +26,18 @@ console.log(subsume.id);
 //=> '7febcd0b3806fbc48c01d7cea4ed1219'
 
 const text = subsume.compose('🦄');
-//=> '@@[7febcd0b3806fbc48c01d7cea4ed1219]@@🦄##[7febcd0b3806fbc48c01d7cea4ed1219]##'
+//=> 'Qq-7febcd0b3806fbc48c01d7cea4ed1219-qQ🦄Zz-7febcd0b3806fbc48c01d7cea4ed1219-zZ'
 
 // the text can now be embedded in some other text
 const output = `some${text} random text`;
-//=> 'some@@[7febcd0b3806fbc48c01d7cea4ed1219]@@🦄##[7febcd0b3806fbc48c01d7cea4ed1219]## random text'
+//=> 'someQq-7febcd0b3806fbc48c01d7cea4ed1219-qQ🦄Zz-7febcd0b3806fbc48c01d7cea4ed1219-zZ random text'
 
 // at a later point we extract it
 subsume.parse(output);
 //=> {data: '🦄', rest: 'some random text'}
 
 // or in a different process by using the `id`
-const input = 'some@@[7febcd0b3806fbc48c01d7cea4ed1219]@@🦄##[7febcd0b3806fbc48c01d7cea4ed1219]## random text';
+const input = 'someQq-7febcd0b3806fbc48c01d7cea4ed1219-qQ🦄Zz-7febcd0b3806fbc48c01d7cea4ed1219-zZ random text';
 Subsume.parse(text, '7febcd0b3806fbc48c01d7cea4ed1219');
 //=> {data: '🦄', rest: 'some random text'}
 ```
